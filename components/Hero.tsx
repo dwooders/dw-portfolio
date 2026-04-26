@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Image from "next/image";
+import HeroE8Diagram from "./HeroE8Diagram";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -91,7 +92,7 @@ export default function Hero() {
     }
   }, []);
 
-  const splitChars = (text: string, className?: string) =>
+  const splitChars = (text: string) =>
     text.split("").map((ch, i) => (
       <span
         key={i}
@@ -386,11 +387,12 @@ export default function Hero() {
                 color: "#262626",
               }}
             >
-              {splitWords("Identity, editorial, and interface — built with intent.")}
+              {splitWords("Identity, motion, and interface — built with intent.")}
             </h2>
           </div>
         </div>
       </div>
+      <HeroE8Diagram />
     </section>
   );
 }
