@@ -3,21 +3,22 @@
 /*
  * E8 Root System — Coxeter Plane (Petrie) Projection
  *
- * Each root vector r = (r₀,…,r₇) ∈ ℝ⁸ maps to 2D via:
- *   x = Σₖ rₖ · cos(kπ/15)
- *   y = Σₖ rₖ · sin(kπ/15)
- *
- * The step angle π/15 = 2π/30 comes from E8's Coxeter number h = 30.
- * Projecting along the first exponent (m = 1) eigenvector of the Coxeter
- * element produces the Gosset 4₂₁ polytope silhouette whose Petrie polygon
- * is a regular 30-gon — the concentric-ring pattern characteristic of E8.
- *
  * Root construction (all roots normalised to length √2):
  *   Type A  ±eᵢ ± eⱼ,  i < j              → C(8,2)·4  = 112 roots
  *   Type B  ½(±1,…,±1), even number of −1s → 2⁷        = 128 roots
  *   Total: 240 roots
  *
  * Adjacency: ⟨α, β⟩ = 1  →  56 neighbours per root  →  6 720 edges total
+ *
+ * Projection — E8 Coxeter plane, computed numerically:
+ *   Simple roots for the Dynkin diagram  α₁–α₃–α₄–α₅–α₆–α₇–α₈, α₂ off α₄:
+ *     α₁ = ½( 1,−1,−1,−1,−1,−1,−1, 1)   α₂ = ( 1, 1, 0,…)   α₃ = (−1, 1, 0,…)
+ *     α₄ = ( 0,−1, 1, 0,…)  α₅ = (0,0,−1,1,…)  α₆–α₈ similarly
+ *   Bipartite Coxeter element  C = s_W · s_B  (W={α₂,α₃,α₅,α₇}, B={α₁,α₄,α₆,α₈})
+ *   acts on ℝ⁸ as a rotation of order h = 30 in the Coxeter plane.
+ *   The two projection axes u, v are extracted via spectral projection:
+ *     u + iv = (1/h) Σₖ e^{−2πik/h} Cᵏ · e₁
+ *   The 240 roots then fall on 8 concentric regular 30-gons (Petrie polygon).
  */
 
 import { useEffect, useRef } from "react";
@@ -52,14 +53,93 @@ function buildRoots(): { vecs: number[][]; types: number[] } {
   return { vecs, types };
 }
 
-function coxeterProject(r: number[]): [number, number] {
-  let x = 0, y = 0;
-  for (let k = 0; k < 8; k++) {
-    const a = (k * Math.PI) / 15;
-    x += r[k] * Math.cos(a);
-    y += r[k] * Math.sin(a);
+// ── Coxeter plane: computed from the bipartite Coxeter element of E8 ─────────
+
+function computeCoxeterAxes(): [number[], number[]] {
+  const N = 8;
+  const eye = (): number[][] =>
+    Array.from({ length: N }, (_, i) =>
+      Array.from({ length: N }, (_, j) => (i === j ? 1 : 0)));
+
+  const mmul = (A: number[][], B: number[][]): number[][] => {
+    const C = Array.from({ length: N }, () => new Array(N).fill(0));
+    for (let i = 0; i < N; i++)
+      for (let k = 0; k < N; k++)
+        if (A[i][k] !== 0)
+          for (let j = 0; j < N; j++)
+            C[i][j] += A[i][k] * B[k][j];
+    return C;
+  };
+
+  const mvec = (M: number[][], v: number[]): number[] =>
+    M.map(row => row.reduce((s, x, j) => s + x * v[j], 0));
+
+  // s_α = I − α⊗α  (valid when ‖α‖² = 2)
+  const refMat = (a: number[]): number[][] => {
+    const M = eye();
+    for (let i = 0; i < N; i++)
+      for (let j = 0; j < N; j++)
+        M[i][j] -= a[i] * a[j];
+    return M;
+  };
+
+  // E8 simple roots (Dynkin: α₁–α₃–α₄–α₅–α₆–α₇–α₈, α₂ branches off α₄)
+  const alpha: number[][] = [
+    [ .5,-.5,-.5,-.5,-.5,-.5,-.5, .5], // α₁  (B)
+    [ 1,  1,  0,  0,  0,  0,  0,  0],  // α₂  (W)
+    [-1,  1,  0,  0,  0,  0,  0,  0],  // α₃  (W)
+    [ 0, -1,  1,  0,  0,  0,  0,  0],  // α₄  (B)
+    [ 0,  0, -1,  1,  0,  0,  0,  0],  // α₅  (W)
+    [ 0,  0,  0, -1,  1,  0,  0,  0],  // α₆  (B)
+    [ 0,  0,  0,  0, -1,  1,  0,  0],  // α₇  (W)
+    [ 0,  0,  0,  0,  0, -1,  1,  0],  // α₈  (B)
+  ];
+
+  // Bipartite Coxeter element  C = s_W · s_B
+  let sW = eye();
+  for (const i of [1, 2, 4, 6]) sW = mmul(refMat(alpha[i]), sW);
+  let sB = eye();
+  for (const i of [0, 3, 5, 7]) sB = mmul(refMat(alpha[i]), sB);
+  const Cmat = mmul(sW, sB);
+
+  // Spectral projection onto the e^{2πi/h} eigenspace:
+  //   (u + iv) = Σ_{k=0}^{h-1} e^{−2πik/h} · Cᵏ · v₀
+  // Try all 8 basis vectors, keep the one with largest projected norm.
+  const h = 30;
+  let bestU: number[] = [], bestV: number[] = [], bestNorm = 0;
+
+  for (let b = 0; b < N; b++) {
+    const pu = new Array(N).fill(0);
+    const pv = new Array(N).fill(0);
+    let Ck_v = new Array(N).fill(0);
+    Ck_v[b] = 1; // start from basis vector eᵦ
+
+    for (let k = 0; k < h; k++) {
+      const angle = (-2 * Math.PI * k) / h;
+      const c = Math.cos(angle), s = Math.sin(angle);
+      for (let i = 0; i < N; i++) {
+        pu[i] += c * Ck_v[i];
+        pv[i] += s * Ck_v[i];
+      }
+      Ck_v = mvec(Cmat, Ck_v);
+    }
+
+    const norm = pu.reduce((s, x) => s + x * x, 0);
+    if (norm > bestNorm) { bestNorm = norm; bestU = pu; bestV = pv; }
   }
-  return [x, y];
+
+  const nu = Math.sqrt(bestU.reduce((s, x) => s + x * x, 0));
+  const nv = Math.sqrt(bestV.reduce((s, x) => s + x * x, 0));
+  return [bestU.map(x => x / nu), bestV.map(x => x / nv)];
+}
+
+const [PROJ_U, PROJ_V] = computeCoxeterAxes();
+
+function coxeterProject(r: number[]): [number, number] {
+  return [
+    r.reduce((s, x, k) => s + x * PROJ_U[k], 0),
+    r.reduce((s, x, k) => s + x * PROJ_V[k], 0),
+  ];
 }
 
 function buildEdges(vecs: number[][]): [number, number][] {
