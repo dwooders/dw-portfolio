@@ -117,7 +117,7 @@ export default function Header({ active }: HeaderProps) {
           left: 0,
           right: 0,
           zIndex: 50,
-          background: scrolled ? "rgba(10,10,10,0.95)" : "rgba(10,10,10,0.72)",
+          background: scrolled ? "rgba(10,10,10,0.98)" : "rgba(10,10,10,0.88)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
           borderBottom: "1px solid rgba(255,255,255,0.08)",
