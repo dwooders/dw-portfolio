@@ -57,7 +57,7 @@ export default function Marquee() {
           display: "inline-flex",
           alignItems: "center",
           whiteSpace: "nowrap",
-          animation: "marquee-loop 120s linear infinite",
+          animation: "marquee-loop 200s linear infinite",
           willChange: "transform",
         }}
       >
