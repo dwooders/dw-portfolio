@@ -10,31 +10,31 @@ if (typeof window !== "undefined") {
 
 const PROJECTS = [
   {
-    id: "ingenue",
-    kind: "ingenue",
-    title: "Ingenue",
-    meta: "Editorial Identity · Quarterly",
-    discipline: "Brand · Editorial",
-    year: "2024",
-    bg: "#2a1810",
-  },
-  {
-    id: "sony",
-    kind: "sony",
-    title: "Sony",
-    meta: "Audio Brand Campaign",
+    id: "heineken",
+    kind: "heineken",
+    title: "Heineken",
+    meta: "Global Brand Campaign",
     discipline: "Brand · Direction",
     year: "2024",
-    bg: "#000000",
+    bg: "#00461e",
   },
   {
-    id: "irishtimes",
-    kind: "irishtimes",
-    title: "The Irish Times",
-    meta: "Digital Masthead Refresh",
-    discipline: "Web · System",
+    id: "dosequis",
+    kind: "dosequis",
+    title: "Dos Equis",
+    meta: "Heritage Brand Refresh",
+    discipline: "Brand · Editorial",
+    year: "2024",
+    bg: "#1a0a00",
+  },
+  {
+    id: "deloitte",
+    kind: "deloitte",
+    title: "Deloitte",
+    meta: "Digital Transformation Strategy",
+    discipline: "Brand · Strategy",
     year: "2023",
-    bg: "#d4d4d0",
+    bg: "#000000",
   },
   {
     id: "empire",
@@ -48,131 +48,196 @@ const PROJECTS = [
 ];
 
 // Artwork components
-function IngenueArt() {
+function HeinekenArt() {
   return (
     <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "radial-gradient(ellipse at 60% 60%, #5b3a25 0%, #2a1810 70%, #120a06 100%)",
+          background: "radial-gradient(ellipse at 50% 40%, #006b2e 0%, #00461e 55%, #001f0d 100%)",
+        }}
+      />
+      {/* Star shape */}
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "38%",
+          transform: "translate(-50%, -50%)",
+          width: 64,
+          height: 64,
+          background: "#ffffff",
+          clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
         }}
       />
       <div
         style={{
           position: "absolute",
           left: "50%",
-          top: "50%",
-          transform: "translate(-50%, -50%)",
-          color: "#e7d4b8",
-          fontFamily: "'Inter Tight', serif",
-          fontSize: 72,
-          fontStyle: "italic",
-          fontWeight: 300,
-          letterSpacing: "0.04em",
-        }}
-      >
-        Ingenue
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          left: 24,
-          bottom: 20,
-          color: "rgba(231,212,184,0.75)",
-          fontSize: 11,
-          letterSpacing: "0.16em",
-          textTransform: "uppercase",
-        }}
-      >
-        Issue 04 — Spring
-      </div>
-    </div>
-  );
-}
-
-function SonyArt() {
-  return (
-    <div style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#000" }}>
-      <div
-        style={{
-          position: "absolute",
-          left: "50%",
-          top: "50%",
-          transform: "translate(-50%, -50%)",
+          bottom: "28%",
+          transform: "translateX(-50%)",
           color: "#ffffff",
           fontFamily: "var(--font-body)",
-          fontSize: 88,
+          fontSize: 52,
           fontWeight: 900,
-          letterSpacing: "0.04em",
-        }}
-      >
-        SONY
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          right: 24,
-          top: 20,
-          color: "#bbbbbb",
-          fontSize: 10,
-          letterSpacing: "0.16em",
+          letterSpacing: "0.08em",
           textTransform: "uppercase",
+          whiteSpace: "nowrap",
         }}
       >
-        Brand Campaign
+        HEINEKEN
       </div>
       <div
         style={{
           position: "absolute",
           left: 24,
           bottom: 20,
-          color: "#bbbbbb",
+          color: "rgba(255,255,255,0.55)",
           fontSize: 10,
           letterSpacing: "0.16em",
           textTransform: "uppercase",
         }}
       >
-        Audio · 2024
+        Global Campaign · 2024
       </div>
     </div>
   );
 }
 
-function IrishTimesArt() {
+function DosEquisArt() {
   return (
-    <div style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#d4d4d0" }}>
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#1a0a00" }}>
       <div
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage:
-            "linear-gradient(135deg, rgba(0,0,0,0.08) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.08) 75%, transparent 75%, transparent)",
-          backgroundSize: "8px 8px",
-          mixBlendMode: "multiply",
+          background: "radial-gradient(ellipse at 50% 50%, #3d1a00 0%, #1a0a00 70%)",
         }}
       />
+      {/* XX mark */}
       <div
         style={{
           position: "absolute",
-          left: 0,
-          right: 0,
-          top: "50%",
-          transform: "translateY(-50%)",
-          textAlign: "center",
-          color: "#0a0a0a",
-          fontFamily: "'Times New Roman', serif",
-          fontSize: 56,
+          left: "50%",
+          top: "46%",
+          transform: "translate(-50%, -50%)",
+          color: "#c8922a",
+          fontFamily: "var(--font-body)",
+          fontSize: 100,
           fontWeight: 900,
-          lineHeight: 0.95,
-          letterSpacing: "-0.02em",
+          letterSpacing: "-0.04em",
+          lineHeight: 1,
         }}
       >
-        THE
-        <br />
-        IRISH
-        <br />
-        TIMES
+        XX
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          bottom: "22%",
+          transform: "translateX(-50%)",
+          color: "#ffffff",
+          fontFamily: "var(--font-body)",
+          fontSize: 18,
+          fontWeight: 700,
+          letterSpacing: "0.28em",
+          textTransform: "uppercase",
+          whiteSpace: "nowrap",
+        }}
+      >
+        DOS EQUIS
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          left: 24,
+          bottom: 20,
+          color: "rgba(200,146,42,0.7)",
+          fontSize: 10,
+          letterSpacing: "0.16em",
+          textTransform: "uppercase",
+        }}
+      >
+        Heritage · 2024
+      </div>
+    </div>
+  );
+}
+
+function DeloitteArt() {
+  return (
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#000000" }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(135deg, #111111 0%, #000000 100%)",
+        }}
+      />
+      {/* Green dot accent */}
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "35%",
+          transform: "translate(-50%, -50%)",
+          display: "flex",
+          alignItems: "center",
+          gap: 0,
+        }}
+      >
+        <span
+          style={{
+            color: "#ffffff",
+            fontFamily: "var(--font-body)",
+            fontSize: 64,
+            fontWeight: 300,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          deloitte
+        </span>
+        <span
+          style={{
+            display: "inline-block",
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            background: "#86bc25",
+            marginLeft: 3,
+            marginBottom: -30,
+          }}
+        />
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          bottom: "24%",
+          transform: "translateX(-50%)",
+          color: "rgba(255,255,255,0.4)",
+          fontSize: 10,
+          letterSpacing: "0.22em",
+          textTransform: "uppercase",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Digital Transformation
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          left: 24,
+          bottom: 20,
+          color: "rgba(134,188,37,0.7)",
+          fontSize: 10,
+          letterSpacing: "0.16em",
+          textTransform: "uppercase",
+        }}
+      >
+        Strategy · 2023
       </div>
     </div>
   );
@@ -319,9 +384,9 @@ function CaseCard({
           background: project.bg,
         }}
       >
-        {project.kind === "ingenue" && <IngenueArt />}
-        {project.kind === "sony" && <SonyArt />}
-        {project.kind === "irishtimes" && <IrishTimesArt />}
+        {project.kind === "heineken" && <HeinekenArt />}
+        {project.kind === "dosequis" && <DosEquisArt />}
+        {project.kind === "deloitte" && <DeloitteArt />}
         {project.kind === "empire" && <EmpireArt />}
 
         <div
