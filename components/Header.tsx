@@ -47,25 +47,24 @@ export default function Header({ active }: HeaderProps) {
         left: 0,
         right: 0,
         zIndex: 50,
-        background: scrolled
-          ? "rgba(10,10,10,0.88)"
-          : "rgba(10,10,10,0.72)",
+        background: scrolled ? "rgba(10,10,10,0.95)" : "rgba(10,10,10,0.72)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         borderBottom: "1px solid rgba(255,255,255,0.08)",
         transition: "background 300ms ease",
-        opacity: 0, // GSAP will animate this in
+        opacity: 0,
       }}
     >
       <div
         style={{
           maxWidth: 1440,
           margin: "0 auto",
-          padding: "0 40px",
+          padding: scrolled ? "0 40px" : "0 40px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: 80,
+          height: scrolled ? 52 : 80,
+          transition: "height 280ms cubic-bezier(0.2,0,0.2,1)",
         }}
       >
         {/* Logo */}
@@ -76,7 +75,7 @@ export default function Header({ active }: HeaderProps) {
             alignItems: "baseline",
             gap: 4,
             fontFamily: "var(--font-body)",
-            fontSize: 18,
+            fontSize: scrolled ? 14 : 18,
             letterSpacing: "0.06em",
             textTransform: "uppercase",
             color: "#ffffff",
@@ -84,6 +83,7 @@ export default function Header({ active }: HeaderProps) {
             border: "none",
             cursor: "pointer",
             lineHeight: 1.3,
+            transition: "font-size 280ms cubic-bezier(0.2,0,0.2,1)",
           }}
         >
           <span style={{ fontWeight: 900 }}>DW</span>
@@ -92,13 +92,13 @@ export default function Header({ active }: HeaderProps) {
         </button>
 
         {/* Nav links */}
-        <nav style={{ display: "flex", gap: 40 }}>
+        <nav style={{ display: "flex", gap: scrolled ? 28 : 40, transition: "gap 280ms cubic-bezier(0.2,0,0.2,1)" }}>
           {NAV_LINKS.map((l) => (
             <button
               key={l.id}
               onClick={() => navigate(l.id)}
               style={{
-                fontSize: 13,
+                fontSize: scrolled ? 11 : 13,
                 fontWeight: 900,
                 letterSpacing: "0.04em",
                 textTransform: "uppercase",
@@ -107,7 +107,7 @@ export default function Header({ active }: HeaderProps) {
                 border: "none",
                 cursor: "pointer",
                 fontFamily: "var(--font-body)",
-                transition: "color 120ms var(--ease-standard)",
+                transition: "color 120ms var(--ease-standard), font-size 280ms cubic-bezier(0.2,0,0.2,1)",
                 padding: 0,
               }}
             >
@@ -120,17 +120,17 @@ export default function Header({ active }: HeaderProps) {
         <button
           onClick={() => navigate("contact")}
           style={{
-            fontSize: 12,
+            fontSize: scrolled ? 10 : 12,
             fontWeight: 700,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
             color: "#ffffff",
             background: "transparent",
             border: "1px solid rgba(255,255,255,0.6)",
-            padding: "10px 20px",
+            padding: scrolled ? "7px 14px" : "10px 20px",
             cursor: "pointer",
             fontFamily: "var(--font-body)",
-            transition: "all 150ms var(--ease-standard)",
+            transition: "all 280ms cubic-bezier(0.2,0,0.2,1)",
           }}
           onMouseEnter={(e) => {
             (e.currentTarget as HTMLElement).style.background = "#ffffff";
