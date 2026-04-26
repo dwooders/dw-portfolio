@@ -56,7 +56,7 @@ export default function Marquee() {
           top: "50%",
           left: "-15%",
           width: "130%",
-          transform: "translateY(-50%) rotate(-25deg)",
+          transform: "translateY(-50%) rotate(30deg)",
           background: "#0a0a0a",
           color: "#ffffff",
           padding: "22px 0",
