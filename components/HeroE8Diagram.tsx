@@ -166,14 +166,17 @@ export default function HeroE8Diagram() {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef  = useRef<any>(null);
 
-  // Parallax — E8 drifts at 40% of scroll speed so it lags behind the text
+  // Parallax + zoom — drifts slower than text, scales into center on scroll
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     let raf = 0;
     const onScroll = () => {
       raf = requestAnimationFrame(() => {
-        el.style.transform = `translateY(${window.scrollY * 0.4}px)`;
+        const s = window.scrollY;
+        const ty    = s * 0.4;
+        const scale = 1 + s * 0.0005;
+        el.style.transform = `translateY(${ty}px) scale(${scale})`;
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });

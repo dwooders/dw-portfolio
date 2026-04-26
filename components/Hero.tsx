@@ -13,17 +13,23 @@ export default function Hero() {
   const kickerRef = useRef<HTMLDivElement>(null);
   const headshotRef = useRef<HTMLDivElement>(null);
   const headshotParallaxRef = useRef<HTMLDivElement>(null);
+  const bigHeadlineParallaxRef = useRef<HTMLDivElement>(null);
   const introCopyRef = useRef<HTMLDivElement>(null);
   const bigHeadlineRef = useRef<HTMLDivElement>(null);
 
-  // Parallax scroll effect on headshot
+  // Parallax scroll effects
   useEffect(() => {
-    const el = headshotParallaxRef.current;
-    if (!el) return;
+    const pairs: [React.RefObject<HTMLDivElement | null>, number][] = [
+      [headshotParallaxRef, 0.25],
+      [bigHeadlineParallaxRef, 0.15],
+    ];
     let raf = 0;
     const onScroll = () => {
       raf = requestAnimationFrame(() => {
-        el.style.transform = `translateY(${window.scrollY * 0.25}px)`;
+        const s = window.scrollY;
+        pairs.forEach(([ref, factor]) => {
+          if (ref.current) ref.current.style.transform = `translateY(${s * factor}px)`;
+        });
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -389,7 +395,7 @@ export default function Hero() {
           </div>
 
           {/* Big secondary headline */}
-          <div style={{ gridColumn: "1 / -1", marginTop: 24, overflow: "hidden" }}>
+          <div ref={bigHeadlineParallaxRef} style={{ gridColumn: "1 / -1", marginTop: 24, overflow: "hidden", willChange: "transform" }}>
             <h2
               ref={bigHeadlineRef}
               style={{
