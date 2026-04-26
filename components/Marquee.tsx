@@ -18,7 +18,6 @@ export default function Marquee() {
             fontSize: 22,
             fontWeight: 900,
             letterSpacing: "0.04em",
-            textTransform: "uppercase",
             padding: "0 28px",
           }}
         >
