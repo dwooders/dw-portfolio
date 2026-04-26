@@ -37,13 +37,13 @@ const PROJECTS = [
     bg: "#000000",
   },
   {
-    id: "empire",
-    kind: "empire",
-    title: "Empire",
-    meta: "Magazine Cover Series",
-    discipline: "Editorial · Cover",
+    id: "tecate",
+    kind: "tecate",
+    title: "Tecate",
+    meta: "Brand Campaign · Latin Market",
+    discipline: "Brand · Direction",
     year: "2024",
-    bg: "#c79567",
+    bg: "#b01020",
   },
 ];
 
@@ -243,50 +243,60 @@ function DeloitteArt() {
   );
 }
 
-function EmpireArt() {
+function TecateArt() {
   return (
-    <div style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#c79567" }}>
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#b01020" }}>
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(180deg, rgba(255,200,140,0.4) 0%, rgba(120,70,30,0.5) 100%)",
+          background: "radial-gradient(ellipse at 50% 40%, #d4182e 0%, #b01020 55%, #6e0010 100%)",
+        }}
+      />
+      {/* Eagle silhouette suggestion — bold geometric lines */}
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "36%",
+          transform: "translate(-50%, -50%)",
+          width: 72,
+          height: 56,
+          background: "#ffffff",
+          clipPath: "polygon(50% 0%, 80% 20%, 100% 10%, 85% 40%, 100% 55%, 70% 50%, 60% 100%, 50% 70%, 40% 100%, 30% 50%, 0% 55%, 15% 40%, 0% 10%, 20% 20%)",
+          opacity: 0.9,
         }}
       />
       <div
         style={{
           position: "absolute",
-          inset: "10% 8%",
-          display: "grid",
-          gridTemplateColumns: "repeat(8, 1fr)",
-          gridTemplateRows: "repeat(6, 1fr)",
-          gap: 4,
+          left: "50%",
+          bottom: "24%",
+          transform: "translateX(-50%)",
+          color: "#ffffff",
+          fontFamily: "var(--font-body)",
+          fontSize: 58,
+          fontWeight: 900,
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+          whiteSpace: "nowrap",
+          textShadow: "0 2px 12px rgba(0,0,0,0.4)",
         }}
       >
-        {Array.from({ length: 48 }).map((_, i) => (
-          <div
-            key={i}
-            style={{ background: "rgba(0,0,0,0.18)", border: "1px solid rgba(0,0,0,0.25)" }}
-          />
-        ))}
+        TECATE
       </div>
       <div
         style={{
           position: "absolute",
-          left: 0,
-          right: 0,
-          top: "50%",
-          transform: "translateY(-50%)",
-          textAlign: "center",
-          color: "#ffffff",
-          fontFamily: "var(--font-body)",
-          fontSize: 68,
-          fontWeight: 900,
-          letterSpacing: "0.02em",
-          textShadow: "0 2px 8px rgba(0,0,0,0.3)",
+          left: 24,
+          bottom: 20,
+          color: "rgba(255,255,255,0.55)",
+          fontSize: 10,
+          letterSpacing: "0.16em",
+          textTransform: "uppercase",
         }}
       >
-        EMPIRE
+        Brand Campaign · 2024
       </div>
     </div>
   );
@@ -387,7 +397,7 @@ function CaseCard({
         {project.kind === "heineken" && <HeinekenArt />}
         {project.kind === "dosequis" && <DosEquisArt />}
         {project.kind === "deloitte" && <DeloitteArt />}
-        {project.kind === "empire" && <EmpireArt />}
+        {project.kind === "tecate" && <TecateArt />}
 
         <div
           style={{
