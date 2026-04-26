@@ -41,40 +41,28 @@ export default function Marquee() {
   }
 
   return (
-    /* Clipping shell — maintains vertical space, hides rotation overflow */
     <div
       style={{
-        position: "relative",
+        background: "#0a0a0a",
+        color: "#ffffff",
+        borderTop: "1px solid #262626",
+        borderBottom: "1px solid #262626",
         overflow: "hidden",
-        height: "80px",
+        padding: "22px 0",
       }}
     >
-      {/* Rotated band — extended left/right to prevent corner gaps */}
       <div
+        ref={trackRef}
         style={{
-          position: "absolute",
-          top: "50%",
-          left: "-15%",
-          width: "130%",
-          transform: "translateY(-50%)",
-          background: "#0a0a0a",
-          color: "#ffffff",
-          padding: "22px 0",
+          display: "inline-flex",
+          alignItems: "center",
+          whiteSpace: "nowrap",
+          animation: "marquee-loop 260s linear infinite",
+          willChange: "transform",
         }}
       >
-        <div
-          ref={trackRef}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            whiteSpace: "nowrap",
-            animation: "marquee-loop 260s linear infinite",
-            willChange: "transform",
-          }}
-        >
-          {items}
-          {items}
-        </div>
+        {items}
+        {items}
       </div>
     </div>
   );
