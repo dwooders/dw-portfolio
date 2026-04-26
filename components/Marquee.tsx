@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 
-const TOKENS = ["Strategy", "Design", "Video Production", "Motion Design", "UX/UI", "Code", "AI Generalist", "Creative Direction"];
+const TOKENS = ["Digital Strategy", "Design", "Video Production", "Motion Design", "UX/UI", "Code", "AI Generalist", "Creative Direction"];
 
 export default function Marquee() {
   const trackRef = useRef<HTMLDivElement>(null);
