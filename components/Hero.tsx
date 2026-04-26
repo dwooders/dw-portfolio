@@ -12,8 +12,23 @@ export default function Hero() {
   const outlineRef = useRef<HTMLDivElement>(null);
   const kickerRef = useRef<HTMLDivElement>(null);
   const headshotRef = useRef<HTMLDivElement>(null);
+  const headshotParallaxRef = useRef<HTMLDivElement>(null);
   const introCopyRef = useRef<HTMLDivElement>(null);
   const bigHeadlineRef = useRef<HTMLDivElement>(null);
+
+  // Parallax scroll effect on headshot
+  useEffect(() => {
+    const el = headshotParallaxRef.current;
+    if (!el) return;
+    let raf = 0;
+    const onScroll = () => {
+      raf = requestAnimationFrame(() => {
+        el.style.transform = `translateY(${window.scrollY * 0.25}px)`;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
+  }, []);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.6 });
@@ -260,7 +275,8 @@ export default function Hero() {
             alignItems: "start",
           }}
         >
-          {/* Headshot */}
+          {/* Headshot — outer div carries parallax, inner carries entrance animation */}
+          <div ref={headshotParallaxRef} style={{ willChange: "transform" }}>
           <div
             ref={headshotRef}
             style={{
@@ -310,6 +326,7 @@ export default function Hero() {
                 }}
               />
             </div>
+          </div>
           </div>
 
           {/* Intro copy */}
