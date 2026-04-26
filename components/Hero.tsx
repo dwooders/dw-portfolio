@@ -220,7 +220,7 @@ export default function Hero() {
                 color: "#262626",
               }}
             >
-              {splitChars("STRATEGIST")}
+              {splitChars("CREATIVE")}
             </h1>
           </div>
         </div>
@@ -245,7 +245,7 @@ export default function Hero() {
             opacity: 0,
           }}
         >
-          CREATIVE
+          STRATEGIST
         </div>
 
         {/* INTRO ROW */}
