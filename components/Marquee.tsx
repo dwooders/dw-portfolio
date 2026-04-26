@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 
-const TOKENS = ["My Work", "Selected", "2024 / 25", "Case Studies", "My Work", "Index"];
+const TOKENS = ["Strategy", "Design", "Video", "Motion", "UX/UI", "Code"];
 
 export default function Marquee() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,7 @@ export default function Marquee() {
           display: "inline-flex",
           alignItems: "center",
           whiteSpace: "nowrap",
-          animation: "marquee-loop 60s linear infinite",
+          animation: "marquee-loop 120s linear infinite",
           willChange: "transform",
         }}
       >
